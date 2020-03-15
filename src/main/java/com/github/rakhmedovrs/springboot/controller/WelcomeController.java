@@ -1,6 +1,6 @@
-package com.github.rakhmedovrs.springboot.deepdive.controller;
+package com.github.rakhmedovrs.springboot.controller;
 
-import com.github.rakhmedovrs.springboot.deepdive.service.WelcomeService;
+import com.github.rakhmedovrs.springboot.service.WelcomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

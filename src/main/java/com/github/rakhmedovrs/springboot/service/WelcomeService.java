@@ -1,4 +1,4 @@
-package com.github.rakhmedovrs.springboot.deepdive.service;
+package com.github.rakhmedovrs.springboot.service;
 
 import org.springframework.stereotype.Component;
 

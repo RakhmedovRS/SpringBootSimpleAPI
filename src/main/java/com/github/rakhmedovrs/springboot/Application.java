@@ -1,4 +1,4 @@
-package com.github.rakhmedovrs.springboot.deepdive;
+package com.github.rakhmedovrs.springboot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
