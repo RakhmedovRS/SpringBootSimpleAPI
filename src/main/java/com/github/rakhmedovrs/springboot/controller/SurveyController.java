@@ -25,4 +25,11 @@ public class SurveyController
 	{
 		return surveyService.retrieveQuestions(surveyId);
 	}
+
+	@RequestMapping(path = "/survey/{surveyId}/questions/{questionID}", method = RequestMethod.GET)
+	public Question retrieveQuestionForSurvey(@PathVariable String surveyId,
+	                                           @PathVariable String questionID)
+	{
+		return surveyService.retrieveQuestion(surveyId, questionID);
+	}
 }
