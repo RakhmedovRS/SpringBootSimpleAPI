@@ -1,6 +1,7 @@
 package com.github.rakhmedovrs.springboot.model;
 
 import java.util.List;
+import javax.validation.constraints.NotEmpty;
 
 /**
  * @author RakhmedovRS
@@ -9,8 +10,11 @@ import java.util.List;
 public class Question
 {
 	private String id;
+	@NotEmpty
 	private String description;
+	@NotEmpty
 	private String correctAnswer;
+	@NotEmpty
 	private List<String> options;
 
 	public Question()
