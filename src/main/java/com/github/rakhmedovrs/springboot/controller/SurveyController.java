@@ -1,6 +1,7 @@
 package com.github.rakhmedovrs.springboot.controller;
 
 import com.github.rakhmedovrs.springboot.model.Question;
+import com.github.rakhmedovrs.springboot.model.Survey;
 import com.github.rakhmedovrs.springboot.service.SurveyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,11 @@ public class SurveyController
 	public List<Question> retrieveQuestionsForSurvey(@PathVariable String surveyId)
 	{
 		return surveyService.retrieveQuestions(surveyId);
+	}
+	@RequestMapping(path = "/surveys", method = RequestMethod.GET)
+	public List<Survey> retrieveSurveys()
+	{
+		return surveyService.retrieveAllSurveys();
 	}
 
 	@RequestMapping(path = "/survey/{surveyId}/questions/{questionID}", method = RequestMethod.GET)
