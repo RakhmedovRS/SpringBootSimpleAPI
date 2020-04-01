@@ -29,5 +29,10 @@ public class UserCommandLineRunner implements CommandLineRunner
 		{
 			LOGGER.info(user.toString());
 		}
+
+		for (User user: repository.findByRole("administrator"))
+		{
+			LOGGER.info(user.toString());
+		}
 	}
 }
