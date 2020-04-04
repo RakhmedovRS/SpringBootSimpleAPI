@@ -1,6 +1,8 @@
 package com.github.rakhmedovrs.springboot.controller;
 
 import com.github.rakhmedovrs.springboot.Application;
+import com.github.rakhmedovrs.springboot.model.Question;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +13,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 /**
@@ -33,6 +36,11 @@ public class SurveyControllerIT
 		httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 	}
 
+	private  String createURL(String path)
+	{
+		return String.format("http://localhost:%s%s", port, path);
+	}
+
 	@Test
 	public void testRetrieveSurveyQuestion() throws Exception
 	{
@@ -48,10 +56,24 @@ public class SurveyControllerIT
 			"    ]\n" +
 			"}";
 
-		String url = String.format("http://localhost:%s/survey/Survey1/questions/Question1", port);
 		TestRestTemplate restTemplate = new TestRestTemplate();
 		HttpEntity<String> entity = new HttpEntity<>(null, httpHeaders);
-		ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+		ResponseEntity<String> response = restTemplate.exchange(createURL("/survey/Survey1/questions/Question1"),
+			HttpMethod.GET, entity, String.class);
 		JSONAssert.assertEquals(expected, response.getBody(), false);
+	}
+
+	@Test
+	public void testCreateSurveyQuestion() throws Exception
+	{
+		Question question = new Question("99", "Test Question", "answer", Arrays.asList("1", "1", "1"));
+		ResponseEntity<String> response = template.exchange(
+			createURL("/survey/Survey1/questions/"),
+			HttpMethod.POST,
+			new HttpEntity<>(question, httpHeaders),
+			String.class);
+
+		String actual = response.getHeaders().get(HttpHeaders.LOCATION).get(0);
+		Assert.assertTrue(actual.contains("/survey/Survey1/questions/"));
 	}
 }
