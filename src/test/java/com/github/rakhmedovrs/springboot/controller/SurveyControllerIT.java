@@ -56,9 +56,8 @@ public class SurveyControllerIT
 			"    ]\n" +
 			"}";
 
-		TestRestTemplate restTemplate = new TestRestTemplate();
 		HttpEntity<String> entity = new HttpEntity<>(null, httpHeaders);
-		ResponseEntity<String> response = restTemplate.exchange(createURL("/survey/Survey1/questions/Question1"),
+		ResponseEntity<String> response = template.exchange(createURL("/survey/Survey1/questions/Question1"),
 			HttpMethod.GET, entity, String.class);
 		JSONAssert.assertEquals(expected, response.getBody(), false);
 	}
