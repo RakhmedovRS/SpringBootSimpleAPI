@@ -14,6 +14,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -37,6 +38,7 @@ public class SurveyControllerTest
 	private SurveyService surveyService;
 
 	@Test
+	@WithMockUser(username = "user1", password = "password1")
 	public void test() throws Exception
 	{
 		Question mockQuestion = new Question("Question1",
@@ -66,6 +68,7 @@ public class SurveyControllerTest
 	}
 
 	@Test
+	@WithMockUser(username = "user1", password = "password1")
 	public void createSurveyQuestion() throws Exception
 	{
 		Question mockQuestion = new Question("Question1",
