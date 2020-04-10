@@ -2,6 +2,7 @@ package com.github.rakhmedovrs.springboot.controller;
 
 import com.github.rakhmedovrs.springboot.Application;
 import com.github.rakhmedovrs.springboot.model.Question;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,6 +14,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -31,14 +33,22 @@ public class SurveyControllerIT
 	private HttpHeaders httpHeaders = new HttpHeaders();
 
 	@Before
-	public void setupJSONAcceptType()
+	public void before()
 	{
+		httpHeaders.add("Authorization", createHttpAuthenticationHeader("user1", "password1"));
 		httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 	}
 
-	private  String createURL(String path)
+	private String createURL(String path)
 	{
 		return String.format("http://localhost:%s%s", port, path);
+	}
+
+	private String createHttpAuthenticationHeader(String userName, String password)
+	{
+		String auth = userName + ":" + password;
+		byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(Charset.defaultCharset()));
+		return "Basic " + new String(encodedAuth);
 	}
 
 	@Test
